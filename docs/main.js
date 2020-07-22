@@ -10,8 +10,15 @@ var myCustomStyle = {
     fillOpacity: 1
 }
 
+var customColors = {
+    'Taiwan': '#000095',
+    'Canada': '#cc0000',
+};
+
 function getColor(feature) {
-    return "#fff";
+    var countryName = feature.properties.name;
+    var color = customColors[countryName] || "#fff";
+    return color;
 }
 
 function getStyle(feature) {
@@ -63,7 +70,7 @@ function onEachFeature(feature, layer) {
 
 $.getJSON(geodb,function(data){
     var map = L.map('map');
-    map.setView([0, 0], 4);
+    map.setView([0, 0], 3);
 
     // https://github.com/Leaflet/Leaflet.fullscreen
     map.addControl(new L.Control.Fullscreen({
@@ -86,4 +93,5 @@ $.getJSON(geodb,function(data){
 	onEachFeature: onEachFeature,
     }).addTo(map);
 
+    L.control.scale().addTo(map);
 });
