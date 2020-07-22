@@ -38,7 +38,8 @@ function zoomToFeature(e) {
 function highlightFeature(e) {
     var layer = e.target;
 
-    console.log(layer);
+    console.log("highlight:", layer.feature.properties);
+
     layer.setStyle({
 	weight: 3,
 	color: '#888',
@@ -50,14 +51,14 @@ function highlightFeature(e) {
 	layer.bringToFront();
     }
 
-    info.update();
+    info.update(layer.feature.properties);
 }
 
 function resetHighlight(e) {
     if (geojson) {
 	geojson.resetStyle(e.target);
     }
-    info.update();
+    info.update(null);
 }
 
 function onEachFeature(feature, layer) {
@@ -85,7 +86,7 @@ $.getJSON(geodb,function(data){
 	maxZoom: 5,
 	maxBounds: bounds,
     });
-    map.setView([0, 0], 3);
+    map.setView([20, 0], 3);
 
 
     // https://github.com/Leaflet/Leaflet.fullscreen
