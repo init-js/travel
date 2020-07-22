@@ -81,9 +81,9 @@ $.getJSON(geodb,function(data){
 	bounds = L.latLngBounds(corner1, corner2);
 
     map = L.map('map', {
-	minZoom: 2,
-	maxZoom: 5,
-	maxBounds: bounds,
+//	minZoom: 2,
+//	maxZoom: 5,
+//	maxBounds: bounds,
     });
     map.setView([0, 0], 3);
 
