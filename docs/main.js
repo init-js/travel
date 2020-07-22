@@ -35,7 +35,6 @@ function showFeature(e) {
     highlightFeature(e);
 }
 
-
 function highlightFeature(e) {
     var layer = e.target;
 
@@ -62,12 +61,20 @@ function resetHighlight(e) {
     info.update(null);
 }
 
+function menuHighlight(e) {
+    if (geojson) {
+	// reset all styles
+	geojson.resetStyle();
+    }
+    highlightFeature(e)
+}
+
 function onEachFeature(feature, layer) {
     layer.on({
 	mouseover: highlightFeature,
 	mouseout: resetHighlight,
-	click: highlightFeature,
-	contextmenu: highlightFeature, // hold for 1s on mobile
+	click: menuHighlight,
+	contextmenu: menuHighlight, // hold for 1s on mobile
     });
 }
 
