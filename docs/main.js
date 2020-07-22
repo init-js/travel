@@ -30,8 +30,9 @@ function getStyle(feature) {
 }
 
 // when clicking a region. reset view.
-function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
+function showFeature(e) {
+    //map.fitBounds(e.target.getBounds());
+    highlightFeature(e);
 }
 
 
@@ -65,7 +66,7 @@ function onEachFeature(feature, layer) {
     layer.on({
 	mouseover: highlightFeature,
 	mouseout: resetHighlight,
-	//click: zoomToFeature
+	click: showFeature
     });
 }
 
