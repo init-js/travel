@@ -64,7 +64,7 @@ function resetHighlight(e) {
 function menuHighlight(e) {
     if (geojson) {
 	// reset all styles
-	geojson.resetStyle();
+	geojson.resetStyle(e.target);
     }
     highlightFeature(e)
 }
@@ -91,7 +91,7 @@ $.getJSON(geodb,function(data){
 	bounds = L.latLngBounds(corner1, corner2);
 
     map = L.map('map', {
-	minZoom: 3,
+	minZoom: 2,
 	maxZoom: 12,
     }).fitWorld();
 
