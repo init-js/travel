@@ -82,11 +82,17 @@ $.getJSON(geodb,function(data){
 	bounds = L.latLngBounds(corner1, corner2);
 
     map = L.map('map', {
-	minZoom: 2,
-	maxZoom: 5,
-	maxBounds: bounds,
-    });
-    map.setView([20, 0], 3);
+	minZoom: 1,
+	maxZoom: 10,
+    }).fitWorld();
+
+    function onLocationError(e) {
+	console.error("locationError: ", e.message);
+    }
+    map.on('locationerror', onLocationError);
+
+    // as soon as user agrees to share location, map moves.
+    map.locate({setview: true, maxZoom: 10});
 
 
     // https://github.com/Leaflet/Leaflet.fullscreen
