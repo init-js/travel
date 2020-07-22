@@ -81,9 +81,9 @@ $.getJSON(geodb,function(data){
 	bounds = L.latLngBounds(corner1, corner2);
 
     map = L.map('map', {
-//	minZoom: 2,
-//	maxZoom: 5,
-//	maxBounds: bounds,
+	minZoom: 2,
+	maxZoom: 5,
+	maxBounds: bounds,
     });
     map.setView([0, 0], 3);
 
@@ -138,7 +138,7 @@ $.getJSON(geodb,function(data){
 
     legend.onAdd = function (map) {
 
-	var div = L.DomUtil.create('div', 'info legend'),
+	var div = L.DomUtil.create('div', 'info legend');
 	var items = [
 	    {lbl: 'CAD Ok.',      color: '#8b2323'},
 	    {lbl: 'NT$ Ok.',      color: '#000095'},
