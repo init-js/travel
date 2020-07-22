@@ -10,11 +10,7 @@ var myCustomStyle = {
 
 $.getJSON(myGeoJSONPath,function(data){
     var map = L.map('map');
-    map.setView([0, 0], 1);
-
-    if (!map.isFullScreen()) {
-	map.toggleFullscreen();
-    }
+    map.setView([0, 0]);
 
     // https://github.com/Leaflet/Leaflet.fullscreen
     map.addControl(new L.Control.Fullscreen({
