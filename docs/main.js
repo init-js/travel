@@ -1,19 +1,16 @@
 "use strict";
 
 var geodb = './countries.geo.json';
-var geojson;
-
-var myCustomStyle = {
-    stroke: true,
-    fill: true,
-    fillColor: '#fff',
-    fillOpacity: 1
-}
+var geojson;  // geo json layer
+var map;      // the leaflet map
+var info;     // headsupdisplay
+var legend;   // map static legend
 
 var customColors = {
     'Taiwan': '#000095',
-    'Canada': '#cc0000',
+    'Canada': '#8b2323',
 };
+
 
 function getColor(feature) {
     var countryName = feature.properties.name;
@@ -24,7 +21,7 @@ function getColor(feature) {
 function getStyle(feature) {
     return {
 	fillColor: getColor(feature),
-	weight: 2,
+	weight: 1,
 	opacity: 1,
 	color: 'black',
 	dashArray: 3,
@@ -32,14 +29,19 @@ function getStyle(feature) {
     }
 }
 
+// when clicking a region. reset view.
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
+
+
 function highlightFeature(e) {
-    // mouse event
     var layer = e.target;
 
     console.log(layer);
     layer.setStyle({
-	weight: 5,
-	color: '#666',
+	weight: 3,
+	color: '#888',
 	dashArray: '',
 	fillOpacity: 0.7
     });
@@ -47,17 +49,15 @@ function highlightFeature(e) {
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
 	layer.bringToFront();
     }
+
+    info.update();
 }
 
 function resetHighlight(e) {
     if (geojson) {
 	geojson.resetStyle(e.target);
     }
-}
-
-// when clicking a region. reset view.
-function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
+    info.update();
 }
 
 function onEachFeature(feature, layer) {
@@ -68,9 +68,25 @@ function onEachFeature(feature, layer) {
     });
 }
 
+jQuery.fn.outerHTML = function(s) {
+    return (s)
+	? this.before(s).remove()
+	: jQuery("<p>").append(this.eq(0).clone()).html();
+}
+
 $.getJSON(geodb,function(data){
-    var map = L.map('map');
+
+    var corner1 = L.latLng(-90, -180),
+	corner2 = L.latLng(90, 180),
+	bounds = L.latLngBounds(corner1, corner2);
+
+    map = L.map('map', {
+	minZoom: 2,
+	maxZoom: 5,
+	maxBounds: bounds,
+    });
     map.setView([0, 0], 3);
+
 
     // https://github.com/Leaflet/Leaflet.fullscreen
     map.addControl(new L.Control.Fullscreen({
@@ -94,4 +110,50 @@ $.getJSON(geodb,function(data){
     }).addTo(map);
 
     L.control.scale().addTo(map);
+
+
+    info = L.control();
+
+    /* custom control to display regional info */
+
+    info.onAdd = function (map) {
+	this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+	this.update();
+	return this._div;
+    };
+
+    info.update = function (props) {
+	if (!props) {
+	    this._div.innerHTML = '<h4>Travel Restrictions</h4>' + 'Hover over a region';
+	} else {
+	    var nameblock = $("<b></b>").text(props.name);
+	    this._div.innerHTML = '<h4>Country Info</h4>' + nameblock.outerHTML();
+	}
+    };
+
+    info.addTo(map);
+
+
+    legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+
+	var div = L.DomUtil.create('div', 'info legend'),
+	var items = [
+	    {lbl: 'CAD Ok.',      color: '#8b2323'},
+	    {lbl: 'NT$ Ok.',      color: '#000095'},
+	    {lbl: 'All Welcome.', color: 'blueviolet'},
+	];
+
+	// loop through our density intervals and generate a label with a colored square for each interval
+	for (var i = 0; i < items.length; i++) {
+	    div.innerHTML +=
+		'<i style="background:' + items[i].color + '"></i> ' +
+		items[i].lbl + "<br />";
+	}
+
+	return div;
+    };
+
+    legend.addTo(map);
 });
