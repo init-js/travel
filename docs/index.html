@@ -3,7 +3,15 @@
   <head>
     <title>Impossible travel</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+    <link rel="stylesheet"
+	  href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+	  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	  crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+	    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+	    crossorigin="">
+    </script>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <style type="text/css">
       .leaflet-container{background-color:#c5e8ff;}
     </style>
@@ -11,9 +19,6 @@
 
   <body>
     <div id="map" style="width: 600px; height: 400px"></div>
-
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="//cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
     <script>
       var myGeoJSONPath = './countries.geo.json';
       var myCustomStyle = {
