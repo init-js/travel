@@ -67,7 +67,7 @@ function onEachFeature(feature, layer) {
 	mouseover: highlightFeature,
 	mouseout: resetHighlight,
 	click: highlightFeature,
-	tap: highlightFeature,
+	contextmenu: highlightFeature, // hold for 1s on mobile
     });
 }
 
