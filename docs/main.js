@@ -83,8 +83,8 @@ $.getJSON(geodb,function(data){
 	bounds = L.latLngBounds(corner1, corner2);
 
     map = L.map('map', {
-	minZoom: 1,
-	maxZoom: 10,
+	minZoom: 3,
+	maxZoom: 12,
     }).fitWorld();
 
     function onLocationError(e) {
@@ -93,7 +93,7 @@ $.getJSON(geodb,function(data){
     map.on('locationerror', onLocationError);
 
     // as soon as user agrees to share location, map moves.
-    map.locate({setview: true, maxZoom: 10});
+    map.locate({setview: true, maxZoom: 12});
 
 
     // https://github.com/Leaflet/Leaflet.fullscreen
