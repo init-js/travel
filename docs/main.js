@@ -32,5 +32,4 @@ $.getJSON(myGeoJSONPath,function(data){
 	style: myCustomStyle
     }).addTo(map);
 
-})
-</script>
+});
