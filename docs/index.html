@@ -12,16 +12,27 @@
 	    crossorigin="">
     </script>
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <style type="text/css">
-      .leaflet-container{background-color:#c5e8ff;}
-    </style>
 
+    <!-- plugins -->
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
+    <style type="text/css">
+      .leaflet-container{background-color:#c5e8ff;}
+
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      html, body, #map {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
   </head>
   <body>
-    <div id="map" style="width: 100%; height: 100%"></div>
+    <div id="map"></div>
     <script src="main.js"></script>
   </body>
   </html>
