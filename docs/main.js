@@ -143,7 +143,7 @@ $.getJSON(geodb,function(data){
 	var items = [
 	    {lbl: 'CAD Ok.',      color: '#8b2323'},
 	    {lbl: 'NT$ Ok.',      color: '#000095'},
-	    {lbl: 'All Welcome.', color: 'blueviolet'},
+	    {lbl: 'All Welcome.', color: '#3e295c'},
 	];
 
 	// loop through our density intervals and generate a label with a colored square for each interval
